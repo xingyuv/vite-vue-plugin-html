@@ -1,0 +1,71 @@
+{
+  "name": "vite-vue-plugin-html",
+  "version": "1.0.1",
+  "private": false ,
+  "description": "A plugin for vite to Minimize index.html and use lodash.template template syntax in index.html",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist",
+    "CHANGELOG.md",
+    "README.md",
+    "README.zh_CN.md"
+  ],
+  "scripts": {
+    "dev": "pnpm unbuild --stub",
+    "build": "pnpm unbuild",
+    "prepublishOnly": "npm run build",
+    "prepack": "pnpm unbuild"
+  },
+  "keywords": [
+    "vite",
+    "html",
+    "minify",
+    "vite-plugin"
+  ],
+  "author": "xingyuv",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xingyuv/vite-vue-plugin-html",
+    "directory": "packages/core"
+  },
+  "bugs": {
+    "url": "https://github.com/xingyuv/vite-vue-plugin-html/issues"
+  },
+  "homepage": "https://github.com/xingyuv/vite-vue-plugin-html/tree/master/#readme",
+  "dependencies": {
+    "@rollup/pluginutils": "^5.0.2",
+    "colorette": "^2.0.19",
+    "connect-history-api-fallback": "^2.0.0",
+    "consola": "^2.15.3",
+    "dotenv": "^16.0.3",
+    "dotenv-expand": "^10.0.0",
+    "ejs": "^3.1.9",
+    "fast-glob": "^3.2.12",
+    "fs-extra": "^11.1.1",
+    "html-minifier-terser": "^7.1.0",
+    "node-html-parser": "^6.1.5",
+    "pathe": "^1.1.0"
+  },
+  "peerDependencies": {
+    "vite": ">=4.2.0"
+  },
+  "devDependencies": {
+    "@babel/types": "^7.21.3",
+    "@types/ejs": "^3.1.2",
+    "@types/fs-extra": "^11.0.1",
+    "@types/html-minifier-terser": "^7.0.0",
+    "@types/node": "^18.15.6",
+    "typescript": "^5.0.2",
+    "vite": "^4.2.1"
+  }
+}
