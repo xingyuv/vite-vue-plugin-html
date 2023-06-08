@@ -124,13 +124,13 @@ export function createPlugin(userOptions: UserOptions = {}): PluginOption {
         for (const page of pages) {
           const dir = path.dirname(page.template)
           if (!ignoreDirs.includes(dir)) {
-            outputDirs.push(dir)
+            outputDirs.push(dir.startsWith('/') ? dir.substring(1) : dir)
           }
         }
       } else {
         const dir = path.dirname(template)
         if (!ignoreDirs.includes(dir)) {
-          outputDirs.push(dir)
+          outputDirs.push(dir.startsWith('/') ? dir.substring(1) : dir)
         }
       }
       const cwd = path.resolve(viteConfig.root, viteConfig.build.outDir)
@@ -153,10 +153,14 @@ export function createPlugin(userOptions: UserOptions = {}): PluginOption {
       )
       await Promise.all(
         htmlDirs.map(async (item) => {
-          const isEmpty = await isDirEmpty(item)
-          if (isEmpty) {
-            return fs.remove(item)
+          const removeEmptyDir = async (p) => {
+            const isEmpty = await isDirEmpty(p)
+            if (isEmpty) {
+              await fs.remove(p)
+              await removeEmptyDir(path.dirname(p))
+            }
           }
+          return removeEmptyDir(item)
         }),
       )
     },
@@ -238,7 +242,7 @@ export function getPage(
 ) {
   let page: PageOption
   if (isMpa(viteConfig) || pages?.length) {
-    page = getPageConfig(name, pages, DEFAULT_TEMPLATE)
+    page = getPageConfig(name, pages, DEFAULT_TEMPLATE, inject)
   } else {
     page = createSpaPage(entry, template, inject)
   }
@@ -255,7 +259,7 @@ export function removeEntryScript(html: string, verbose = false) {
     return html
   }
 
-  const root = parse(html)
+  const root = parse(html, { comment: true })
   const scriptNodes = root.querySelectorAll('script[type=module]') || []
   const removedNode: string[] = []
   scriptNodes.forEach((item) => {
@@ -268,6 +272,7 @@ export function removeEntryScript(html: string, verbose = false) {
       removedNode.toString(),
     )} is deleted. You may also delete it from the index.html.
         `)
+  consola.warn(root.toString())
   return root.toString()
 }
 
@@ -288,10 +293,12 @@ export function getPageConfig(
   htmlName: string,
   pages: Pages,
   defaultPage: string,
+  inject: InjectOptions = {},
 ): PageOption {
   const defaultPageOption: PageOption = {
     filename: defaultPage,
     template: `./${defaultPage}`,
+    injectOptions: inject,
   }
 
   const page = pages.filter((page) => {
@@ -326,7 +333,7 @@ function createRewire(
   proxyUrlKeys: string[],
 ) {
   return {
-    from: new RegExp(`^/${reg}*`),
+    from: new RegExp(reg ? `^/${reg}*` : '^/?$'),
     to({ parsedUrl }: any) {
       const pathname: string = parsedUrl.pathname
 

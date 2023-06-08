@@ -14,7 +14,7 @@
 
 **node version:** >=16.18.0
 
-**vite version:** >=4.2.0
+**vite version:** >=4.3.0
 
 ```bash
 pnpm add vite-vue-plugin-html -D
