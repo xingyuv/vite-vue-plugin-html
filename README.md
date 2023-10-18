@@ -12,9 +12,9 @@
 
 ## Install (yarn or npm)
 
-**node version:** >=16.18.0
+**node version:** >=18.0.0
 
-**vite version:** >=4.3.0
+**vite version:** >=4.5.0
 
 ```bash
 pnpm add vite-vue-plugin-html -D

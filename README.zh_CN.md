@@ -12,11 +12,11 @@
 - 支持自定义`entry`
 - 支持自定义`template`
 
-## 安装 (yarn or npm)
+## 安装 (pnpm)
 
-**node version:** >=16.18.0
+**node version:** >=18.0.0
 
-**vite version:** >=4.3.0
+**vite version:** >=4.5.0
 
 ```bash
 pnpm add vite-vue-plugin-html -D
