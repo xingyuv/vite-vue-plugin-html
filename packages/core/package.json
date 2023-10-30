@@ -1,6 +1,6 @@
 {
   "name": "vite-vue-plugin-html",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "private": false,
   "description": "A plugin for vite to Minimize index.html and use lodash.template template syntax in index.html",
   "main": "dist/index.cjs",
@@ -53,7 +53,7 @@
     "fast-glob": "^3.3.1",
     "fs-extra": "^11.1.1",
     "html-minifier-terser": "^7.2.0",
-    "node-html-parser": "^6.1.10",
+    "node-html-parser": "^6.1.11",
     "pathe": "^1.1.1"
   },
   "peerDependencies": {
@@ -62,9 +62,9 @@
   "devDependencies": {
     "@babel/types": "^7.23.0",
     "@types/ejs": "^3.1.4",
-    "@types/fs-extra": "^11.0.2",
+    "@types/fs-extra": "^11.0.3",
     "@types/html-minifier-terser": "^7.0.1",
-    "@types/node": "^20.8.7",
+    "@types/node": "^20.8.9",
     "typescript": "^5.2.2",
     "vite": "^4.5.0"
   }
